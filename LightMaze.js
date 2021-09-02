@@ -12,7 +12,7 @@ var mouseDragging = false;
 var mouseDragged = false;
 var trans = [1,0,0,1,0,0];
 
-var drawCountElement = null;
+// var drawCountElement = null;
 
 
 window.onload = function() {
@@ -26,30 +26,30 @@ window.onload = function() {
 	height = rect.bottom - rect.top;
 	game = new LightMazeGame(width, height);
 
-	var zoomElement = document.getElementById("zoom");
-	var transElement = document.getElementById("trans");
-	var mouseElement = document.getElementById("mouse");
-	drawCountElement = document.getElementById("drawcount");
+	// var zoomElement = document.getElementById("zoom");
+	// var transElement = document.getElementById("trans");
+	// var mouseElement = document.getElementById("mouse");
+	// drawCountElement = document.getElementById("drawcount");
 
-	function magnify(f){
-		// Prepare the transformation matrix for zooming
-		trans = matmp([f, 0, 0, f, (1 - f) * mouseCenter[0], (1 - f) * mouseCenter[1]], trans);
+	// function magnify(f){
+	// 	// Prepare the transformation matrix for zooming
+	// 	trans = matmp([f, 0, 0, f, (1 - f) * mouseCenter[0], (1 - f) * mouseCenter[1]], trans);
 
-		var result = magnification * f;
-		if(result < 1){
-			// When fully zoomed out, reset the matrix to identity.
-			magnification = 1.;
-			trans = [1, 0, 0, 1, 0, 0];
-		}
-		else
-			magnification = result;
-		zoomElement.innerHTML = magnification.toString();
-		transElement.innerHTML = trans.toString();
-	}
+	// 	var result = magnification * f;
+	// 	if(result < 1){
+	// 		// When fully zoomed out, reset the matrix to identity.
+	// 		magnification = 1.;
+	// 		trans = [1, 0, 0, 1, 0, 0];
+	// 	}
+	// 	else
+	// 		magnification = result;
+	// 	// zoomElement.innerHTML = magnification.toString();
+	// 	// transElement.innerHTML = trans.toString();
+	// }
 
 	// For Google Chrome
 	function MouseWheelListenerFunc(e){
-		magnify(0 < e.wheelDelta ? 1.2 : 1. / 1.2);
+		// magnify(0 < e.wheelDelta ? 1.2 : 1. / 1.2);
 
 		// Cancel scrolling by the mouse wheel
 		e.preventDefault();
@@ -57,7 +57,7 @@ window.onload = function() {
 
 	// For FireFox
 	function MouseScrollFunc(e){
-		magnify(e.detail < 0 ? 1.2 : 1. / 1.2);
+		// magnify(e.detail < 0 ? 1.2 : 1. / 1.2);
 
 		// Cancel scrolling by the mouse wheel
 		e.preventDefault();
@@ -127,7 +127,7 @@ window.onload = function() {
 	canvas.onmousedown = function(e){
 		mouseDragging = true;
 		mouseDragged = false;
-		mouseElement.innerHTML = "true";
+		// mouseElement.innerHTML = "true";
 
 		var r = getOffsetRect(canvas);
 
@@ -137,7 +137,7 @@ window.onload = function() {
 
 	canvas.onmouseup = function(e){
 		mouseDragging = false;
-		mouseElement.innerHTML = "false";
+		// mouseElement.innerHTML = "false";
 	};
 
 	canvas.onclick = function(e){
@@ -182,8 +182,10 @@ window.onload = function() {
 	};
 
 	var stageno = document.getElementById('stageno');
+	console.log(stageno);
+
 	if(stageno){
-		for(var i = 0; i < game.problems.length; i++){
+		for(var i = 9; i < game.problems.length; i++){
 			var cell = document.createElement('span');
 			cell.id = "stageno" + (i+1);
 			cell.innerHTML = (i+1);
@@ -209,7 +211,7 @@ function nextStage(stageno){
 	game.nextProblem();
 	var nextStageElem = document.getElementById("nextstage");
 	nextStageElem.style.display = "none";
-	for(var i = 0; i < game.problems.length; i++){
+	for(var i = 9; i < game.problems.length; i++){
 		var stageNoElem = document.getElementById("stageno" + (i + 1));
 		stageNoElem.className = "noselect " + (i === game.currentProblem ? "probcell currentProb" : "probcell");
 	}
@@ -391,5 +393,5 @@ function draw() {
 	var countStr = ""
 	for(var i = 0; i < countElements.length; i++)
 		countStr += countElements[i] + ": " + drawCounts[countElements[i]] + " / " + totalCounts[countElements[i]] + "<br>"
-	drawCountElement.innerHTML = countStr;
+	// drawCountElement.innerHTML = countStr;
 }

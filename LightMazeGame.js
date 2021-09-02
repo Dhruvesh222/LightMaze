@@ -380,10 +380,16 @@ function LightMazeGame(width, height){
 LightMazeGame.prototype.global_time = 0;
 
 LightMazeGame.prototype.nextProblem = function(){
-	if(this.currentProblem+1 < this.problems.length){
+	if(this.currentProblem < this.problems.length){
 		this.instruments.splice(0, this.instruments.length);
 		this.walls.splice(0, this.walls.length);
-		this.problems[++this.currentProblem].call(this);
+		console.log(this.currentProblem);
+		console.log(this.problems.length);
+		if(this.currentProblem==-1){
+			this.problems[9+this.currentProblem].call(this);
+		}else{
+			this.problems[++this.currentProblem].call(this);
+		}
 
 		// Update pointer to the game, which is very likely but not necessarily
 		// a singleton object. We do not want to write 'this' in every line in
